@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 //rutas para el controlador de usuarios
 Route::post('/api/users','UserController@register');
-Route::post('/api/sesion','UserController@login');
+Route::post('/api/sesions','UserController@login');
 
 //rutas para el controlador de autos
 // controlador restful

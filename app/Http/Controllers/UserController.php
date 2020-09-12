@@ -18,13 +18,13 @@ class UserController extends Controller
     
 
 
-    $params = json_decode($request->getContent());
+    //$params = json_decode($request->getContent());
 
 
     //var_dump($json);die();
 
-    //$json = $request->input('json',null);
-    //$params = json_decode($json); // convierto a objeto
+    $json = $request->input('json',null);
+    $params = json_decode($json); // convierto a objeto
 
 
 
@@ -97,16 +97,24 @@ return response()->json($data,200);
         $jwtAuth = new JwtAuth();
 
         //recibo el Json por post
-        $json = $request->input('json',null);
-        $params = json_decode($json);
+       // $json = $request->input('json',null);
+        //$params = json_decode($json);
+
+       $params = json_decode($request->getContent());
 
         //asigno valores mediante los ternarios
 
-        $email = (!is_null($json) && isset($params->email)) ? $params->email:null;
-        $password = (!is_null($json) && isset($params->password)) ? $params->password:null;
+        //$email = (!is_null($json) && isset($params->email)) ? $params->email:null;
+       // $password = (!is_null($json) && isset($params->password)) ? $params->password:null;
+
+         $email = ( isset($params->email)) ? $params->email:null;
+        $password = ( isset($params->password)) ? $params->password:null;
+
+
         
         //si viene a false el token seteo eso sino true 
-        $getToken = (!is_null($json) && isset($params->gettoken)) ? $params->gettoken:null; 
+        //$getToken = (!is_null($json) && isset($params->gettoken)) ? $params->gettoken:null; 
+         $getToken = (isset($params->gettoken)) ? $params->gettoken:null; 
 
              // cifro la password que envia el usuario
              $pwd = hash('sha256',$password);
