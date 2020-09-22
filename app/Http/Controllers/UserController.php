@@ -62,8 +62,10 @@ class UserController extends Controller
      $data = array(
         'status' => 'success',
         'code'=> 200,
-        'message' => 'Usuario registrado correctamente'
+        'message' => 'Usuario registrado correctamente',
+        'response'=>var_dump(http_response_code())
          );
+         
  }else{
   //no guardo el usuario
   $data = array(
