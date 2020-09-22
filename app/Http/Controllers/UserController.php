@@ -18,13 +18,13 @@ class UserController extends Controller
     
 
 
-    //$params = json_decode($request->getContent());
+    $params = json_decode($request->getContent());
 
 
     //var_dump($json);die();
 
-    $json = $request->input('json',null);
-    $params = json_decode($json); // convierto a objeto
+    //$json = $request->input('json',null);
+    //$params = json_decode($json); // convierto a objeto
 
 
 
