@@ -69,11 +69,11 @@ class UserController extends Controller
  }else{
   //no guardo el usuario
   $data = array(
-    'status' => 'error',
-    'code'=> 400,
-    'message' => 'Usuario duplicado, no puede registrarse'
+    
+    'message' => 'Usuario duplicado, no puede registrarse',
+   
      );
-
+     return response()->json($data,409);
  }
 
    }else{
@@ -142,6 +142,8 @@ return response()->json($data,200);
                         'status'=> 'error',
                         'message' =>'Envia tus datos por post'
                        );
+                       return response()->json($signup,422);
+                       
                    }
 
                // devuelvo el token
