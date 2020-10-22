@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 
 
+
+
+Route::group(['middleware' => ['cors']], function () {
+    //Rutas a las que se permitirá acceso
+
 //rutas para el controlador de usuarios
 Route::post('/api/users','UserController@register');
 Route::post('/api/sesions','UserController@login');
@@ -24,3 +29,4 @@ Route::post('/api/sesions','UserController@login');
 //rutas para el controlador de autos
 // controlador restful
 Route::resource('/api/cars','CarController');
+});
