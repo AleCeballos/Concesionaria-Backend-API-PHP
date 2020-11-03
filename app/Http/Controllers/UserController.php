@@ -70,12 +70,7 @@ class UserController extends Controller
  if(!$isset_user){
      //guardo el usuario por que no esta
      $user->save();
-     $data = array(
-        'status' => 'success',
-        'code'=> 200,
-        'message' => 'Usuario registrado correctamente',
-        'response'=>var_dump(http_response_code())
-         );
+     $data = $user->toJson();
          
  }else{
   //no guardo el usuario
