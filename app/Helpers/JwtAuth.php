@@ -54,19 +54,22 @@ public function __construct(){
        //devuelvo el uno o el dos para autenticar al usuario SI/NO
        if(is_null($getToken)){
 
-        return $jwt;
+        $tokenEnJson = json_encode($jwt); 
+     
+        var_dump($tokenEnJson);die();
+        //return $jwt;
        }else{
            return $decoded;
        }
 
         }else{
 
-             return array(
-                'status' => 'error',
-               
-                'message' => 'Login ha fallado'
-              );
-           
+          return array(
+            'status' => 'error',
+          
+            'message' => 'Login ha fallado'
+         ); 
+             
         }
 
   }
@@ -93,10 +96,14 @@ public function checkToken($jwt,$getIdentity =false){
    }
 
 if($getIdentity){
-    return $decoded;
-}
 
- return $auth;   
+ return response()->json($decoded,200);
+  //  return $decoded;
+}
+var_dump($auth);die();
+return response()->json($auth,200);
+ //return $auth;  
+  
 }
 
 

@@ -145,7 +145,9 @@ return response()->json($data,200);
                        return response()->json($signup,422);
                        
                    }
-
+                  
+                  
+         
                // devuelvo el token
                return response()->json($signup, 200);
            }
