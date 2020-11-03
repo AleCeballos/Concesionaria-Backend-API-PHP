@@ -10,6 +10,17 @@ use App\User; //importo el modelo de usuario
 
 class UserController extends Controller
 {
+
+
+  public function options(Request $request){
+
+
+   return response()->json('hola',200);
+  }
+
+
+
+
     //creo metodo para el registro de usuarios
     //Request recibe info por post
     public function register(Request $request){
