@@ -70,7 +70,7 @@ class UserController extends Controller
  if(!$isset_user){
      //guardo el usuario por que no esta
      $user->save();
-     $data = $user->toJson();
+     $data = $user;
          
  }else{
   //no guardo el usuario
