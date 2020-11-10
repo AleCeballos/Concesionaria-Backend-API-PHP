@@ -17,9 +17,7 @@ public function __construct(){
 
 //si llega true devuelvo el token mediante este metodo
   public function signup($email, $password, $getToken=null){
-
-
-    //compruebo que el usuario exista en base de datos
+//compruebo que el usuario exista en base de datos
     $user =User::where(
          array(
              'email'=>$email,
@@ -30,8 +28,7 @@ public function __construct(){
         if(is_object($user)){
              $signup = true;
         }
-       
-        if($signup){
+               if($signup){
          //si es verdadero genero el token y lo devuelvo
         //array con todos los datos del usuario     
        $token= array(
@@ -43,26 +40,17 @@ public function __construct(){
                     'exp'=>time()+(7*24*60*60)
        );
        
-       //token json
-
        //n1
        $jwt = JWT::encode($token,$this->key,'HS256');
        //n2
        $decoded = JWT::decode($jwt,$this->key,array('HS256')); 
-
-
-       
-   
-       //devuelvo el uno o el dos para autenticar al usuario SI/NO
+      //devuelvo el uno o el dos para autenticar al usuario SI/NO
        if(is_null($getToken)){
-
-       
-       // $tokenEnJson = json_encode($jwt); 
-        
-
-        return response ($jwt,200);
+ // $tokenEnJson = json_encode($jwt); 
+        $user->token = $jwt;
+        return $user;
        }else{
-           return $decoded;
+           //return $decoded;
        }
 
         }else{
