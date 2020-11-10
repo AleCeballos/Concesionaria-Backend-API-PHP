@@ -27,6 +27,7 @@
          Route::post('/api/sesions','UserController@login');
          Route::resource('/api/cars','CarController');
 
-         Route::options('/api/users','UserController@options');
+         Route::options('/api/*','UserController@options');
+       
     });
 

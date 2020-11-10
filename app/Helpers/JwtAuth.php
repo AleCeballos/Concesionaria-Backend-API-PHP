@@ -30,7 +30,7 @@ public function __construct(){
         if(is_object($user)){
              $signup = true;
         }
-
+       
         if($signup){
          //si es verdadero genero el token y lo devuelvo
         //array con todos los datos del usuario     
@@ -51,24 +51,29 @@ public function __construct(){
        $decoded = JWT::decode($jwt,$this->key,array('HS256')); 
 
 
+       
+   
        //devuelvo el uno o el dos para autenticar al usuario SI/NO
        if(is_null($getToken)){
 
-        $tokenEnJson = json_encode($jwt); 
-     
-        var_dump($tokenEnJson);die();
-        //return $jwt;
+       
+       // $tokenEnJson = json_encode($jwt); 
+        
+
+        return response ($jwt,200);
        }else{
            return $decoded;
        }
 
         }else{
 
-          return array(
-            'status' => 'error',
+
+          $data = array(
+            'message'=>'Error de sesion'
+          );
           
-            'message' => 'Login ha fallado'
-         ); 
+      return  response()->json($data,401);
+     
              
         }
 
@@ -97,12 +102,12 @@ public function checkToken($jwt,$getIdentity =false){
 
 if($getIdentity){
 
- return response()->json($decoded,200);
-  //  return $decoded;
+ //return response()->json($decoded,200);
+    return $decoded;
 }
-var_dump($auth);die();
-return response()->json($auth,200);
- //return $auth;  
+
+//return response()->json($auth,200);
+ return $auth;  
   
 }
 
