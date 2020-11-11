@@ -8,13 +8,9 @@ use App\User;
 class JwtAuth{
 
 public $key;
-
 public function __construct(){
-
     $this->key = 'esta-es-mi-clave-secreta-$%7987465898789546';
 }
-
-
 //si llega true devuelvo el token mediante este metodo
   public function signup($email, $password, $getToken=null){
 //compruebo que el usuario exista en base de datos
@@ -27,8 +23,7 @@ public function __construct(){
         $signup = false;
         if(is_object($user)){
              $signup = true;
-        }
-               if($signup){
+        }if($signup){
          //si es verdadero genero el token y lo devuelvo
         //array con todos los datos del usuario     
        $token= array(
@@ -51,53 +46,29 @@ public function __construct(){
         return $user;
        }else{
            //return $decoded;
-       }
-
-        }else{
-
-
-          $data = array(
+                 }}else{
+$data = array(
             'message'=>'Error de sesion'
           );
-          
-      return  response()->json($data,401);
-     
-             
-        }
-
-  }
-
-//recibo el token lo decodifico si es objeto devuelvo true sino false y en caso de pasarle get identity ya lo decodifico
+            return  response()->json($data,401);
+      }}//recibo el token lo decodifico si es objeto devuelvo true sino false y en caso de pasarle get identity ya lo decodifico
 public function checkToken($jwt,$getIdentity =false){
-
-    $auth=false;
-
+$auth=false;
     try{
-
         $decoded =JWT::decode($jwt,$this->key,array('HS256'));
     }catch(\UnexpectedValueException $e){
         $auth=false; 
-
     }catch(\DomainException $e){
         $auth=false; }
-
         //
    if(isset($decoded) &&is_object($decoded) && isset($decoded->sub)){ //controlar
     $auth=true; 
    }else{
     $auth=false; 
-   }
-
+    }
 if($getIdentity){
-
  //return response()->json($decoded,200);
     return $decoded;
-}
-
-//return response()->json($auth,200);
+}//return response()->json($auth,200);
  return $auth;  
-  
-}
-
-
-}
+}}

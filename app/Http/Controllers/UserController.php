@@ -102,9 +102,9 @@ class UserController extends Controller
   
   public function login(Request $request){
     $jwtAuth = new JwtAuth();
-    $params = json_decode($request->getContent());
-    $email = ( isset($params->email)) ? $params->email:null;
-    $password = ( isset($params->password)) ? $params->password:null;
+      $params = json_decode($request->getContent());
+        $email = ( isset($params->email)) ? $params->email:null;
+         $password = ( isset($params->password)) ? $params->password:null;
     $getToken = (isset($params->gettoken)) ? $params->gettoken:null; 
     
     // cifro la password que envia el usuario
