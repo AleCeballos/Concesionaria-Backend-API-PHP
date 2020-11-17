@@ -75,10 +75,8 @@ class UserController extends Controller
       }else{
         //no guardo el usuario
         $data = array(
-          
           'message' => 'Usuario duplicado, no puede registrarse',
-          
-        );
+          );
         return response()->json($data,409);
       }
       

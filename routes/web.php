@@ -31,6 +31,9 @@
          Route::options('/api/users','UserController@options');
          Route::options('/api/sesions','UserController@options');
          Route::options('/api/cars','UserController@options');
+
+         Route::options('/api/users/{id}','UserController@options');
+         Route::options('/api/cars/{id}','UserController@options');
        
     });
 
