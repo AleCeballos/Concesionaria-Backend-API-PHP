@@ -30,14 +30,7 @@ class UserController extends Controller
     
     
     $params = json_decode($request->getContent());
-    
-    
-    //var_dump($json);die();
-    
-    //$json = $request->input('json',null);
-    //$params = json_decode($json); // convierto a objeto
-    
-    
+    $params_array=json_decode($request->getContent(),true); //array
     
     
     //verifico que el json no venga vacio ni el campo
@@ -54,7 +47,6 @@ class UserController extends Controller
       
       $user = new User();
       $user->email =$email;
-      
       $user->name =$name;
       $user->surname =$surname;
       $user->role =$role;
@@ -67,6 +59,19 @@ class UserController extends Controller
       
       $isset_user = User::where('email','=',$email)->first();
       
+     //validacion--------------------------------------
+     $validate =\Validator::make($params_array,[
+      'name'=>'required|string',
+      'surname'=>'required|string',
+      'email'=>'required|string|email',
+      'password'=>'required|string'
+     ]);
+     if($validate->fails()){
+     return response()->json($validate->errors(),400);
+     }
+    //------------------------------------------------------------
+
+
       if(!$isset_user){
         //guardo el usuario por que no esta
         $user->save();
@@ -103,7 +108,24 @@ class UserController extends Controller
       $params = json_decode($request->getContent());
         $email = ( isset($params->email)) ? $params->email:null;
          $password = ( isset($params->password)) ? $params->password:null;
-    $getToken = (isset($params->gettoken)) ? $params->gettoken:null; 
+         
+         $params_array=json_decode($request->getContent(),true); //array
+
+        
+      //validacion--------------------------------------
+     $validate =\Validator::make($params_array,[
+     
+      'email'=>'required|string|email',
+      'password'=>'required|string'
+     ]);
+     if($validate->fails()){
+     return response()->json($validate->errors(),400);
+     }
+    //------------------------------------------------------------
+
+    
+    
+         $getToken = (isset($params->gettoken)) ? $params->gettoken:null; 
     
     // cifro la password que envia el usuario
     $pwd = hash('sha256',$password);

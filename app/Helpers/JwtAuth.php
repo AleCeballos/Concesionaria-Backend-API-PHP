@@ -21,6 +21,8 @@ public function __construct(){
         ))->first();
 
         $signup = false;
+
+
         if(is_object($user)){
              $signup = true;
         }if($signup){
@@ -47,10 +49,10 @@ public function __construct(){
        }else{
            //return $decoded;
                  }}else{
-$data = array(
-            'message'=>'Error de sesion'
-          );
-            return  response()->json($data,401);
+// $data = array(
+//             'message'=>'Error de sesion'
+//           );
+            return  response()->json("",401);//ARREGLAR 
       }}//recibo el token lo decodifico si es objeto devuelvo true sino false y en caso de pasarle get identity ya lo decodifico
 public function checkToken($jwt,$getIdentity =false){
 $auth=false;

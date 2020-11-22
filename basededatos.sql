@@ -26,3 +26,7 @@ updated_at datetime DEFAULT NULL,
 CONSTRAINT pk_cars PRIMARY KEY(id),
 CONSTRAINT fk_cars_users FOREIGN KEY (user_id) REFERENCES users(id) 
 )ENGINE=InnoDb;
+
+alter table cars add detalles_id int(255)
+
+alter table cars add modelo varchar(255)

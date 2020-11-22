@@ -21,6 +21,8 @@ class CarController extends Controller
     //$cars=Car::all()->load('user');
      return response()->json($cars,200);
   }
+
+  
   //-------VEO UN SOLO AUTO------------//
   public function show($id){
     $carExists = Car::find($id);
@@ -33,6 +35,8 @@ class CarController extends Controller
       );
     }
   }
+
+
   //-------GUARDO AUTOS-------------// 
   public function store (Request $request){
     $hash = $request->header('Authorization',null); //
@@ -42,18 +46,23 @@ class CarController extends Controller
     if($checkToken){
       //obtengo datos por post
       $params = json_decode($request->getContent());
+      $params_array=json_decode($request->getContent(),true); //array
+      
       //obtengo usuario identificado
       $user= $jwtAuth->checkToken($hash,true);
-      //validacion
-      //$validate =\Validator::make($params,[
-        //                 'title'=>'required|min:5',
-        //                 'description'=>'required',
-        //                 'price'=>'required',
-        //                 'status'=>'required'
-        //             ]);
-        // if($validate->fails()){
-          //     return response()->json($validate->errors(),400);
-          // }
+      //validacion--------------------------------------
+       $validate =\Validator::make($params_array,[
+                          'title'=>'required|string',
+                          'description'=>'required|string',
+                          'price'=>'required|numeric',
+                          'status'=>'required|string',
+                          'detalles_id'=>'required|numeric',
+                          'modelo'=>'required|string'
+                      ]);
+     if($validate->fails()){
+              return response()->json($validate->errors(),400);
+          }
+//------------------------------------------------------------
           //guardo un coche
           $car = new Car();
           $car->user_id = $user->sub;
@@ -61,6 +70,9 @@ class CarController extends Controller
           $car->description = $params->description;
           $car->price = $params->price;
           $car->status = $params->status;
+          $car->detalles_id = $params->detalles_id;
+          $car->modelo = $params->modelo;
+
           $car->save();
           //devuelvo el objeto car
           $data = $car;
@@ -74,6 +86,8 @@ class CarController extends Controller
         }
         return response()->json($data,200);
       }
+
+
       //--------------ACTUALIZO EL COCHE---------------// 
       public function update($id, Request $request){
         $hash = $request->header('Authorization',null); 
@@ -84,6 +98,21 @@ class CarController extends Controller
           //recoger parametros por post
           $parametros = json_decode($request->getContent()); //objeto 
           $params_array=json_decode($request->getContent(),true); //array
+
+      //validacion--------------------------------------
+       $validate =\Validator::make($params_array,[
+        'title'=>'required|string',
+        'description'=>'required|string',
+        'price'=>'required|numeric',
+        'status'=>'required|string',
+        'detalles_id'=>'required|numeric',
+        'modelo'=>'required|string'
+       ]);
+       if($validate->fails()){
+       return response()->json($validate->errors(),400);
+       }
+      //------------------------------------------------------------
+
            //actualizar registro
           $car = Car::where('id',$id)->update($params_array);
           if($car){
@@ -104,6 +133,7 @@ class CarController extends Controller
         return response()->json($data,200);
       }
       
+      
       //--------------ELIMINO UN COCHE--------------//
       public function destroy (  $id, Request $request){
         $hash = $request->header('Authorization',null); 
@@ -123,7 +153,7 @@ class CarController extends Controller
           }  
           //devolverlo
           $data = $car;
-          //return response()->json($data,200);
+          
         }else{
           
           $data = array(
