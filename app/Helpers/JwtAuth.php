@@ -52,7 +52,10 @@ public function __construct(){
 // $data = array(
 //             'message'=>'Error de sesion'
 //           );
-            return  response()->json("",401);//ARREGLAR 
+
+          //return response()->json("error de sesion",409);//ARREGLAR
+          return 1;
+          
       }}//recibo el token lo decodifico si es objeto devuelvo true sino false y en caso de pasarle get identity ya lo decodifico
 public function checkToken($jwt,$getIdentity =false){
 $auth=false;
@@ -62,15 +65,15 @@ $auth=false;
         $auth=false; 
     }catch(\DomainException $e){
         $auth=false; }
-        //
+     
    if(isset($decoded) &&is_object($decoded) && isset($decoded->sub)){ //controlar
     $auth=true; 
    }else{
     $auth=false; 
     }
 if($getIdentity){
- //return response()->json($decoded,200);
+ 
     return $decoded;
-}//return response()->json($auth,200);
+}
  return $auth;  
 }}

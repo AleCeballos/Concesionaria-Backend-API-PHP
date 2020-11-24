@@ -87,11 +87,13 @@ class UserController extends Controller
       
     }else{
       
-      $data = array(
-        'status' => 'error',
-        'code'=> 400,
-        'message' => 'Usuario no creado'
-      );
+      
+
+      $data= array('mensaje' => "Complete todos los campos");
+
+      
+
+       return response()->json($data,409);
     }
     
     // respuesta
@@ -142,7 +144,27 @@ class UserController extends Controller
       return response()->json($signup,422);
       }
     // devuelvo el token
-    return response()->json($signup, 200);
+   
+
+    if(is_object($signup)){
+      return response()->json($signup, 200);
+    }else{
+
+      $error = array(
+       
+        'message' =>'Error de sesion'
+      );
+
+      return response()->json($error, 409);
+    
+    }
+
+   
+    
+     
+      
+ 
+   
   }
   
 }
