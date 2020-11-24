@@ -30,9 +30,12 @@ class CarController extends Controller
       $car=Car::find($id)->load('user');
       return response()->json($car,200);
     }else{
-      return array(
-        'message' => 'Coche no existe'
+      $error = array(
+       
+        'message' =>'Error coche no existe'
       );
+
+      return response()->json($error, 409);
     }
   }
 
@@ -126,7 +129,7 @@ class CarController extends Controller
         }else{
           //devuelvo error
           $data = array(
-            'message'=>'Error al borrar login incorrecto',
+            'message'=>'Error al actualizar login incorrecto',
           );
           return response()->json($data,401);
         }

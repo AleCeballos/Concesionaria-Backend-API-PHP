@@ -141,7 +141,7 @@ class UserController extends Controller
         'status'=> 'error',
         'message' =>'Envia tus datos por post'
       );
-      return response()->json($signup,422);
+      return response()->json($signup,409);
       }
     // devuelvo el token
    
